@@ -24,11 +24,6 @@ from bs4 import BeautifulSoup
 from pyprnt import prnt # 리스트구조 이쁘게 출력하기
 #import time
 
-
-
-
-
-
 #-----------------------------------------------------------------------------------#
 
 

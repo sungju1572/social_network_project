@@ -77,6 +77,31 @@ def find_evnet_code(pagination_number, chrome_driver_path):
 
 #-----------------------------------------------------------------------------------#
 
+#-----------------------------------------------------------------------------------#
+## 2021년 3월 13일 08:04 시간기준 >  pagination 21
+
+def find_kospi_200(pagination_number):
+    
+    """
+        네이버의 최대 pagination 숫자를 받아
+        kospi_200 데이터를 dict 형으로 return
+    
+        Dependency Module   : selenium, BeautifulSoup
+        Dependency function : find_evnet_code
+        email : gksxorb147@naver.com
+        update : 2021.03.13 08:15
+        
+    """
+    
+    item_dict = {}  ## 결과 저장 dict
+    
+    for num in range(1,pagination_number+1):
+        item_dict.update(find_evnet_code(num))
+    
+    return item_dict
+
+#-----------------------------------------------------------------------------------#
+
 
 #-----------------------------------------------------------------------------------#
 ## 폴더의 종류별 리스트 출력하기
@@ -111,7 +136,6 @@ def list_extensions_dir(dir_path):
     ## dict에 키 추가
     for file_extensions in dict_key_list:
         folder_list[file_extensions] = []
-    
     
     ## folder_list 
     for num in range(len(extensions_list)):
