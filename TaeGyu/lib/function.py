@@ -11,15 +11,49 @@
 
 
 #-----------------------------------------------------------------------------------#
-## URL 크롬 연결
-## 코스피 200
+
 #from selenium import webdriver
 #from bs4 import BeautifulSoup
 
-#chrome_driver = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+#chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
 
+def read_html(URL):
 
-def find_evnet_code(pagination_number, chrome_driver_path):
+    """
+        selenium, BeautifulSoup을 사용해서
+        html문서를 불러옵니다.
+    
+        Dependency Module   : selenium, BeautifulSoup
+        Dependency function : x
+        email : gksxorb147@naver.com
+        update : 2021.03.14 11:20
+        
+    """
+
+    chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+    
+    ## chromedriver.exe 연결
+    driver = webdriver.Chrome(chrome_driver_path)    
+    
+    # chrome driver 로 해당 페이지가 물리적으로 open
+    driver.get(URL)
+    
+    src = driver.page_source
+    
+    soup = BeautifulSoup(src)
+    
+    # chrome driver 사용 후, close 함수로 종료
+    driver.close()
+
+    return soup
+
+#-----------------------------------------------------------------------------------#
+
+#-----------------------------------------------------------------------------------#
+## URL 크롬 연결
+## 코스피 200
+
+def find_evnet_code(pagination_number):
     
     """
         URL의 주식명과 주식 코드를
@@ -31,8 +65,9 @@ def find_evnet_code(pagination_number, chrome_driver_path):
         ex ) 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
         
         Dependency Module : selenium, BeautifulSoup
+        Dependency function : read_html
         email : gksxorb147@naver.com
-        update : 2021.03.13 
+        update : 2021.03.14
     """
     
     # return 변수
@@ -42,19 +77,8 @@ def find_evnet_code(pagination_number, chrome_driver_path):
     ## URL
     url = 'https://finance.naver.com/sise/entryJongmok.nhn?&page={}'.format(pagination_number)
     
-    ## chromedriver.exe 연결
-    driver = webdriver.Chrome(chrome_driver_path)    
-    
-    # chrome driver 로 해당 페이지가 물리적으로 open
-    driver.get(url)
-
-    src = driver.page_source
-
-    soup = BeautifulSoup(src)
-
-    # chrome driver 사용 후, close 함수로 종료
-    driver.close()
-
+    #
+    soup = read_html(url)
 
     table = soup.find("tbody")
 
@@ -80,22 +104,32 @@ def find_evnet_code(pagination_number, chrome_driver_path):
 #-----------------------------------------------------------------------------------#
 ## 2021년 3월 13일 08:04 시간기준 >  pagination 21
 
-def find_kospi_200(pagination_number):
+def find_kospi_200_code():
     
     """
-        네이버의 최대 pagination 숫자를 받아
+        네이버의 최대 pagination 숫자를 찾아
         kospi_200 데이터를 dict 형으로 return
     
         Dependency Module   : selenium, BeautifulSoup
-        Dependency function : find_evnet_code
+        Dependency function : find_evnet_code, read_html
         email : gksxorb147@naver.com
         update : 2021.03.13 08:15
         
     """
+
+    url = 'https://finance.naver.com/sise/entryJongmok.nhn?&page=1'
+    
+    soup = read_html(url)
+    
+    pagination_number = soup.find("table",class_="Nnavi"
+                           ).find("td"   ,class_="pgRR"
+                           ).find("a"
+                           ).attrs["href"
+                           ].split("=")[-1]
     
     item_dict = {}  ## 결과 저장 dict
     
-    for num in range(1,pagination_number+1):
+    for num in range(1,int(pagination_number)+1):
         item_dict.update(find_evnet_code(num))
     
     return item_dict
@@ -114,6 +148,7 @@ def list_extensions_dir(dir_path):
         딕셔너리를 만들어 출력합니다.
         
         Dependency Module : os
+        Dependency function : x
         email : gksxorb147@naver.com
         update : 2021.03.13 
     """
@@ -161,6 +196,7 @@ def change_current_path(path):
         현재 작업하고 있는 경로를 변경해 줍니다.
         
         Dependency Module : os
+        Dependency function : x
         email : gksxorb147@naver.com
         update : 2021.03.13 
     """
@@ -175,21 +211,23 @@ def change_current_path(path):
 
 
 #-----------------------------------------------------------------------------------#
-## 파일 저장하기
+## json 파일 저장하기
 #import os
 
-# path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu"
-# file_name = "sample.json"
+path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
+
+file_name = "kospi_200_item_code.json"
 
 def save_json_file(data, path, file_name):
     
     """        
         json 파일을 저장해줍니다.
         
+        Dependency Module : os
+        Dependency function : x
         email : gksxorb147@naver.com
         update : 2021.03.13 
     """
-    
     
     try:
         fs = open(path+"/"+file_name,"w", encoding='UTF-8')

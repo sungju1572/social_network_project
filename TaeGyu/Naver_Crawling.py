@@ -29,10 +29,49 @@ from pyprnt import prnt # 리스트구조 이쁘게 출력하기
 
 #-----------------------------------------------------------------------------------#
 
-chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+#from selenium import webdriver
+#from bs4 import BeautifulSoup
+
+#chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+
+def read_html(URL):
+
+    """
+        selenium, BeautifulSoup을 사용해서
+        html문서를 불러옵니다.
+    
+        Dependency Module   : selenium, BeautifulSoup
+        Dependency function : x
+        email : gksxorb147@naver.com
+        update : 2021.03.14 11:20
+        
+    """
+
+    chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+    
+    ## chromedriver.exe 연결
+    driver = webdriver.Chrome(chrome_driver_path)    
+    
+    # chrome driver 로 해당 페이지가 물리적으로 open
+    driver.get(URL)
+    
+    src = driver.page_source
+    
+    soup = BeautifulSoup(src)
+    
+    # chrome driver 사용 후, close 함수로 종료
+    driver.close()
+
+    return soup
+
+#-----------------------------------------------------------------------------------#
 
 
-def find_evnet_code(num):
+#-----------------------------------------------------------------------------------#
+## URL 크롬 연결
+## 코스피 200
+
+def find_evnet_code(pagination_number):
     
     """
         URL의 주식명과 주식 코드를
@@ -40,37 +79,24 @@ def find_evnet_code(num):
         
         이 함수는 크롬브라우저를 사용하고 있습니다.
         chrome_driver_path 인자에 자신의 크롬 
-        브라우져 경로를 넣어야 합니다.        
+        브라우져 경로를 넣어야 합니다.
         ex ) 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
         
-        Dependency Module   : selenium, BeautifulSoup
-        Dependency function : x
+        Dependency Module : selenium, BeautifulSoup
+        Dependency function : read_html
         email : gksxorb147@naver.com
-        update : 2021.03.13 08:08
-        
+        update : 2021.03.14
     """
     
-    global chrome_driver_path ## 크롬 브라우져 경로
-    item_dict = {}            ## 결과 저장 dict
+    # return 변수
+    item_dict = {}
     
     
     ## URL
-    url = 'https://finance.naver.com/sise/entryJongmok.nhn?&page={}'.format(num)
+    url = 'https://finance.naver.com/sise/entryJongmok.nhn?&page={}'.format(pagination_number)
     
-    ## chromedriver.exe 연결
-    driver = webdriver.Chrome(chrome_driver_path)    
-    
-    # chrome driver 로 해당 페이지가 물리적으로 open
-    driver.get(url)
-
-    # 페이지 소스
-    src = driver.page_source
-
-    # 페이지 소스 BeautifulSoup에 넣기
-    soup = BeautifulSoup(src)
- 
-    # chrome driver 사용 후, close 함수로 종료
-    driver.close()
+    #
+    soup = read_html(url)
 
     table = soup.find("tbody")
 
@@ -96,22 +122,32 @@ def find_evnet_code(num):
 #-----------------------------------------------------------------------------------#
 ## 2021년 3월 13일 08:04 시간기준 >  pagination 21
 
-def find_kospi_200(pagination_number):
+def find_kospi_200_code():
     
     """
-        네이버의 최대 pagination 숫자를 받아
+        네이버의 최대 pagination 숫자를 찾아
         kospi_200 데이터를 dict 형으로 return
     
         Dependency Module   : selenium, BeautifulSoup
-        Dependency function : find_evnet_code
+        Dependency function : find_evnet_code, read_html
         email : gksxorb147@naver.com
         update : 2021.03.13 08:15
         
     """
+
+    url = 'https://finance.naver.com/sise/entryJongmok.nhn?&page=1'
+    
+    soup = read_html(url)
+    
+    pagination_number = soup.find("table",class_="Nnavi"
+                           ).find("td"   ,class_="pgRR"
+                           ).find("a"
+                           ).attrs["href"
+                           ].split("=")[-1]
     
     item_dict = {}  ## 결과 저장 dict
     
-    for num in range(1,pagination_number+1):
+    for num in range(1,int(pagination_number)+1):
         item_dict.update(find_evnet_code(num))
     
     return item_dict
@@ -122,7 +158,7 @@ def find_kospi_200(pagination_number):
 ## json 파일 저장하기
 #import os
 
-path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu"
+path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
 
 file_name = "kospi_200_item_code.json"
 
@@ -147,9 +183,9 @@ def save_json_file(data, path, file_name):
         
 #-----------------------------------------------------------------------------------#
 
-#data = find_kospi_200(21)
+# data = find_kospi_200()
 
-#save_json_file(data,path,file_name)
+# save_json_file(data,path,file_name)
 
 
 
