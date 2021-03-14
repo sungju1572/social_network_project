@@ -4,8 +4,15 @@
     순천향대학교 빅데이터공학과
     20171483 한태규
     
+    ------------------------- memo -------------------------
+    https://finance.naver.com/sise/sise_index.nhn?code=KPI200
+    
+    네이버 금융 코스피 200의 종목명, 종목코드를 json 파일로 만드는
+    code 입니다.
+    --------------------------------------------------------
+     
     email : gksxorb147@naver.com
-    update : 2021.03.13 06:51
+    update : 2021.03.14 16:39
 """
 
 #-----------------------------------------------------------------------------------#
@@ -13,17 +20,7 @@
 import json
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
 from bs4 import BeautifulSoup
-
-
-from pyprnt import prnt # 리스트구조 이쁘게 출력하기
-#import time
-
 #-----------------------------------------------------------------------------------#
 
 
@@ -47,7 +44,7 @@ def read_html(URL):
         
     """
 
-    chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+    global chrome_driver_path
     
     ## chromedriver.exe 연결
     driver = webdriver.Chrome(chrome_driver_path)    
@@ -86,8 +83,7 @@ def find_evnet_code(pagination_number):
         Dependency function : read_html
         email : gksxorb147@naver.com
         update : 2021.03.14
-    """
-    
+    """    
     # return 변수
     item_dict = {}
     
@@ -158,9 +154,9 @@ def find_kospi_200_code():
 ## json 파일 저장하기
 #import os
 
-path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
+# path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
 
-file_name = "kospi_200_item_code.json"
+# file_name = "kospi_200_item_code.json"
 
 def save_json_file(data, path, file_name):
     
@@ -183,9 +179,31 @@ def save_json_file(data, path, file_name):
         
 #-----------------------------------------------------------------------------------#
 
-# data = find_kospi_200()
+
+#-----------------------------------------------------------------------------------#
+
+    """        
+        selenium, BeautifulSoup를 필요로 합니다.
+        실행전에 설치해주세요!!
+        
+        아래 주석을 풀어서 사용하세요!
+    """
+
+
+## 크롬브라우저 실행파일의 경로를 입력해야 합니다.
+# chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+
+#data = find_kospi_200_code()
+
+## 자신이 저장하고 싶은 경로를 입력합니다.
+# path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
+
+## 저장하고 싶은 파일명을 입력합니다.
+# file_name = "kospi_200_item_code.json"
 
 # save_json_file(data,path,file_name)
+
+
 
 
 
