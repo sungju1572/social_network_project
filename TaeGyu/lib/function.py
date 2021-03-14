@@ -428,3 +428,28 @@ def evnet_daily_all_data(event_name, event_code):
     return return_dict
     
 #-----------------------------------------------------------------------------------#
+
+#-----------------------------------------------------------------------------------#
+## 
+
+def save_evnet_daily_all_data(kospi_200_item_code, save_path):
+    
+    """
+        코스피 200 종목을 데이터를 받아서
+        종목 마다 데일리 data를 json 형태로
+        저장
+    
+        Dependency Module   : selenium, BeautifulSoup
+        Dependency function : save_json_file
+        email : gksxorb147@naver.com
+        update : 2021.03.14 11:20
+        
+    """
+    
+    for key in kospi_200_item_code.keys():
+        data = evnet_daily_all_data(key, kospi_200_item_code[key])
+        file_name = "{}.json".format(key)
+        save_json_file(data, save_path, file_name)
+        print(file_name+" : 저장완료!!")
+        
+#-----------------------------------------------------------------------------------#
