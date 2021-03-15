@@ -188,21 +188,24 @@ def save_json_file(data, path, file_name):
         실행전에 설치해주세요!!
         
         아래 주석을 풀어서 사용하세요!
+        
+        
+       크롤링 시간은 약 3시간 입니다.
     """
 
 
-## 크롬브라우저 실행파일의 경로를 입력해야 합니다.
-# chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+# 크롬브라우저 실행파일의 경로를 입력해야 합니다.
+chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
 
-#data = find_kospi_200_code()
+data = find_kospi_200_code()
 
-## 자신이 저장하고 싶은 경로를 입력합니다.
-# path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
+# 자신이 저장하고 싶은 경로를 입력합니다.
+path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
 
-## 저장하고 싶은 파일명을 입력합니다.
-# file_name = "kospi_200_item_code.json"
+# 저장하고 싶은 파일명을 입력합니다.
+file_name = "kospi_200_item_code.json"
 
-# save_json_file(data,path,file_name)
+save_json_file(data,path,file_name)
 
 
 

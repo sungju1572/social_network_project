@@ -322,16 +322,16 @@ def save_evnet_daily_all_data(kospi_200_item_code, save_path):
         
     """
 
-## 코스피 200 데이터 불러오기
+# 코스피 200 데이터 불러오기
 
-# # kospi_200_item_code.json 파일 경로
-# path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
-# file_name = "kospi_200_item_code.json"
-# kospi_200_item_code = read_json_file(path,file_name)
+# kospi_200_item_code.json 파일 경로
+path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
+file_name = "kospi_200_item_code.json"
+kospi_200_item_code = read_json_file(path,file_name)
 
 # 데이터 저장 장소
-# path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json/data"
-# save_evnet_daily_all_data(kospi_200_item_code, path)
+path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json/data"
+save_evnet_daily_all_data(kospi_200_item_code, path)
 
     
 

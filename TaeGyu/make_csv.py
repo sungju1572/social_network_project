@@ -5,7 +5,7 @@
     20171483 한태규
     
     ------------------------- memo -------------------------
-    json데이터를 csv파일로 만들어 주는 코드입니다.
+    폴더의 json데이터를 csv파일로 만들어 주는 코드입니다.
     
     --------------------------------------------------------
      
@@ -160,11 +160,11 @@ def change_current_path(path):
         update : 2021.03.13 
     """
     
-    print("before: %s"%os.getcwd())
+    print("before: {}".format(os.getcwd()))
     
     os.chdir(path)
     
-    print("after: %s"%os.getcwd())
+    print("after: {}".format(os.getcwd()))
 
 #-----------------------------------------------------------------------------------#
 
@@ -177,7 +177,6 @@ def change_current_path(path):
         
         아래 주석을 풀어서 사용하세요!
     """
-
 
 ## json data 경로 설정
 path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json/data"

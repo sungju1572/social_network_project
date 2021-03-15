@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['lib\\function.py', 'practice.py', 'make_event_daily_data.py', 'make_event_code_to_json.py']
+recent_files = ['make_event_daily_data.py', 'make_event_code_to_json.py', 'make_csv.py', 'lib\\function.py', 'practice.py']
 
