@@ -277,10 +277,10 @@ def evnet_daily_all_data(event_name, event_code):
                 data_list += data_satatus[0][:]
             else:
                 data_list += data_satatus[0][:]
-                return_dict[event_name] = {"codoe" : event_code,"data" : data_list}
+                return_dict[event_name] = {"code" : event_code,"data" : data_list}
                 return return_dict
                 
-    return_dict[event_name] = {"codoe" : event_code,"data" : data_list}
+    return_dict[event_name] = {"code" : event_code,"data" : data_list}
     return return_dict
     
 #-----------------------------------------------------------------------------------#
@@ -312,6 +312,7 @@ def save_evnet_daily_all_data(kospi_200_item_code, save_path):
 
 
 #-----------------------------------------------------------------------------------#
+## 실행 코드
 
     """        
         selenium, BeautifulSoup를 필요로 합니다.

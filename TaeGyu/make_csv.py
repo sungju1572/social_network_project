@@ -18,6 +18,7 @@
 ## modul 연결
 import json
 import os
+import pandas as pd
 #-----------------------------------------------------------------------------------#
 
 #-----------------------------------------------------------------------------------#
@@ -114,13 +115,12 @@ def json_group(path):
         email : gksxorb147@naver.com
         update : 2021.03.15 13:26 
     """
-
     
     
     kospi_200_all_data = []
     kospi_200_all_data_csv = [['종목','코드','날짜', '종가', '상태', '전일비', '시가', '고가', '저가', '거래량']]
     
-    for file_name in list_extensions_dir(path)["json"]:
+    for file_name in list_extensions_dir(path)["json"]: # json 파일만 선택
         kospi_200_all_data.append(read_json_file(path,file_name))    
     
     # print(kospi_200_all_data)
@@ -142,30 +142,6 @@ def json_group(path):
     return kospi_200_all_data_csv
 
 #-----------------------------------------------------------------------------------#
-
-
-import pandas as pd
-
-#-----------------------------------------------------------------------------------#
-##
-
-def list_to_csv(data):
-    
-    """        
-        list 데이터를 csv 형태로 변경해줍니다.
-        
-        email : gksxorb147@naver.com
-        update : 2021.03.15 13:26 
-    """
-    
-    for data_list in data:
-        for num in range(len(data_list)):
-            if num==9:
-                print(data_list[num],end="\n")
-            else:
-                print(data_list[num],end="/")
-
-#-----------------------------------------------------------------------------------#    
     
 #-----------------------------------------------------------------------------------#
 ## 현재 경로 변경하기
@@ -190,27 +166,38 @@ def change_current_path(path):
     
     print("after: %s"%os.getcwd())
 
-#-----------------------------------------------------------------------------------#  
+#-----------------------------------------------------------------------------------#
 
+#-----------------------------------------------------------------------------------#
+## 실행 코드
+
+    """        
+        selenium, BeautifulSoup를 필요로 합니다.
+        실행전에 설치해주세요!!
+        
+        아래 주석을 풀어서 사용하세요!
+    """
+
+
+## json data 경로 설정
 path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json/data"
 
+## json data 하나로 합치기
 data = json_group(path)
 
-
+## csv 저장 경로 설정
 path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/csv"
+
+## 현재 경로 변경
 change_current_path(path)
 
-
+## pandas dataFrame 사용
 df = pd.DataFrame(data[1:],
                columns=data[0])
 
+## csv 저장
 df.to_csv('kospi_200_daily_data.csv', encoding='utf-8')
 
-
- 
+## 데이터 확인
 print(df.head(10))
-
-
-
-
-
+#-----------------------------------------------------------------------------------#

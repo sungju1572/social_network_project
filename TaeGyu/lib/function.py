@@ -256,8 +256,10 @@ def read_json_file(path, file_name):
     """        
         json 파일을 읽어옵니다.
         
+        Dependency Module : os, json
+        Dependency function : x
         email : gksxorb147@naver.com
-        update : 2021.03.14 12:00 
+        update : 2021.03.13 
     """
     
     json_data = {}
