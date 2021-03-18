@@ -189,13 +189,12 @@ def save_json_file(data, path, file_name):
         
         아래 주석을 풀어서 사용하세요!
         
-        
-       크롤링 시간은 약 3시간 입니다.
+       크롤링완료 시간은 약 3시간 입니다.
     """
 
 
 # 크롬브라우저 실행파일의 경로를 입력해야 합니다.
-chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
+chrome_driver_path = './chromedriver_win32/chromedriver.exe'
 
 data = find_kospi_200_code()
 
