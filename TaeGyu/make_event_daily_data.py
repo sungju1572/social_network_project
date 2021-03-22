@@ -50,7 +50,7 @@ def read_html(URL):
         
     """
 
-    chrome_driver_path = './chromedriver_win32/chromedriver.exe'
+    chrome_driver_path = 'C:/Users/gksxo/Downloads/chromedriver_win32/chromedriver.exe'
     
     ## chromedriver.exe 연결
     driver = webdriver.Chrome(chrome_driver_path)    
