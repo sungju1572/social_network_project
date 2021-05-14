@@ -16,7 +16,6 @@ import time
 import requests
 
 
-
 class OPGG():
 
     def __init__(self):
@@ -196,9 +195,59 @@ class OPGG():
 
 
 
+
+    def find_champion_counter(self, URL):
+        """ OP.GG 챔피언 line URL를 입력받아서
+            같은 라인의 상대 챔피언간의 상성을 
+            비교해서 list 형으로 return 한다.
+
+        Args:
+            [string]: URL을 입력합니다.
+                ex) : https://www.op.gg/champion/Aatrox/statistics/Top
+
+        Returns:
+            [list]: 아래와 같은 형식으로 리턴 합니다.
+                [ ['Support', 'Zac', 'Xerath', '53.38', '133'],
+                  ['Support', 'Zac', 'Blitzcrank', '52.27', '132'],
+                    ... ]
+        """
+
+        result_list = []
+
+        MATHCUP_URL = "{}/matchup?".format(URL)
+
+        find_champion = MATHCUP_URL.split("/")[4]
+        find_champion_line = MATHCUP_URL.split("/")[-2]
+
+        html = self.read_html(MATHCUP_URL)
+
+        champion_matchup = html.find("div", class_="champion-matchup-champion-list")
+
+        matchup_list = champion_matchup.find_all("div", class_="champion-matchup-champion-list__item")
+
+        for n in range(len(matchup_list)):
+
+            # 상대 챔피언 이름
+            cntr_name = matchup_list[n].find("span").get_text()
+
+            # 상대 챔피언과 승률
+            winning_rate = matchup_list[n].find("span", class_="champion-matchup-list__winrate").get_text().strip()[:-1] 
+
+            # 상대 챔피언과 판수
+            matchup_cnt = matchup_list[n].find("small").get_text()
+
+            result_list.append([ find_champion_line,
+                                 find_champion,
+                                 cntr_name,
+                                 winning_rate,
+                                 matchup_cnt  ])
+
+        return result_list
+
+
 if __name__ == '__main__':
 
     a = OPGG()
     # c = a.find_champion_tier_all()
     # print(c)
-    print(a.champion_line_url())
+    print(a.find_champion_counter("https://www.op.gg/champion/Aatrox/statistics/Top"))
