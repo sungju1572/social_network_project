@@ -123,18 +123,20 @@ class OPGG():
             # OP.GG 서버 방지를 위한 sleep
             time.sleep(1)
 
-            result_list += self.find_tier(line)
+            result_list += self.find_champion_tier(line)
         
         print("티어 정보 추출을 완료했습니다.")
         return result_list
 
 
 
-    def 
 
-
+            
+    
 
 if __name__ == '__main__':
 
     a = OPGG()
-    c = a.find_tier_all()
+    c = a.find_champion_tier_all()
+    print(c)
+    # a.find_champion_line()
