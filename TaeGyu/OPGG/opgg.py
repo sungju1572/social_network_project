@@ -13,6 +13,7 @@
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import time
 import requests
 
 
@@ -97,9 +98,32 @@ class OPGG():
         # type : list
         return result_list
 
-    
 
-    
+
+
+    def find_tier_all(self):
+        """모든 라인의 티어를 list로
+           return 합니다.
+
+        Returns:
+            [list]: 모든 라인의 티어 list
+        """
+
+        
+        result_list = []
+
+        line_tuple = ( "TOP", "JUNGLE",
+                       "MID", "ADC",
+                       "SUPPORT" )
+
+        for line in line_tuple:
+
+            # OP.GG 서버 방지를 위한 sleep
+            time.sleep(1)
+
+            result_list += self.find_tier(line)
+        
+        return result_list
 
 
 
@@ -108,6 +132,6 @@ class OPGG():
 if __name__ == '__main__':
 
     a = OPGG()
-    c = a.find_tier("JUNGLE")
-    print(c)
+    c = a.find_tier_all()
+    
     
