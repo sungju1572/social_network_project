@@ -49,7 +49,7 @@ class OPGG():
 
 
 
-    def find_tier(self, line="TOP"):
+    def find_champion_tier(self, line="TOP"):
         """원하는 챔피언의 라인을 받아서 
            그 라인의 티어 list를
            return 합니다. 
@@ -101,7 +101,7 @@ class OPGG():
 
 
 
-    def find_tier_all(self):
+    def find_champion_tier_all(self):
         """모든 라인의 티어를 list로
            return 합니다.
 
@@ -130,11 +130,11 @@ class OPGG():
 
 
 
+    def 
+
 
 
 if __name__ == '__main__':
 
     a = OPGG()
     c = a.find_tier_all()
-    
-    
