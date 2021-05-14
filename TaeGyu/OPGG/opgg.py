@@ -118,11 +118,14 @@ class OPGG():
 
         for line in line_tuple:
 
+            print("정보를 크롤링 하고 있습니다. 라인 > {}".format(line))
+
             # OP.GG 서버 방지를 위한 sleep
             time.sleep(1)
 
             result_list += self.find_tier(line)
         
+        print("티어 정보 추출을 완료했습니다.")
         return result_list
 
 
