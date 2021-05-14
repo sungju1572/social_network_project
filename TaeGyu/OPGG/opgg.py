@@ -8,7 +8,6 @@
     --------------------------------------------------------
      
     email : gksxorb147@naver.com
-    update : 2021.05.14 00:11
 """
 
 from selenium import webdriver
@@ -133,6 +132,8 @@ class OPGG():
         return result_list
 
 
+
+
     def find_champion_line(self):
         """챔피언이 가는 라인을 찾아서
            dict 형식으로 return 합니다.
@@ -157,10 +158,10 @@ class OPGG():
             lt = []
 
             champion_name = champion_info_list[n].find("div", class_="champion-index__champion-item__name"
-                                                 ).get_text()
+                                                ).get_text()
 
             champion_line = champion_info_list[n].find("div", class_="champion-index__champion-item__positions"
-                                                 ).find_all("div", class_="champion-index__champion-item__position")
+                                                ).find_all("div", class_="champion-index__champion-item__position")
             # 챔피언의 라인 넣기
             # 1개 이상이 나올 수 있어서 전부 찾아줌
             for cl in champion_line:
@@ -169,10 +170,35 @@ class OPGG():
             result_dict[champion_name] = lt
 
         return result_dict
+    
+
+    
+    def champion_line_url(self):
+        """ 챔피언의 라인별로 URL을 생성 후
+            list type으로 return 합니다.
+
+        Returns:
+            [list]: 아래와 같은 형식으로 리턴 합니다.
+                ['https://www.op.gg/champion/Aatrox/statistics/Top',
+                 'https://www.op.gg/champion/Ahri/statistics/Middle',
+                    ... ]
+        """
+
+        result_list = []
+
+        champion_line = self.find_champion_line()
+
+        for k, value_list in champion_line.items():
+            for vl in value_list:
+                result_list.append("https://www.op.gg/champion/{}/statistics/{}".format(k, vl))
+
+        return result_list
+
+
 
 if __name__ == '__main__':
 
     a = OPGG()
     # c = a.find_champion_tier_all()
     # print(c)
-    print(a.find_champion_tier("TOP"))
+    print(a.champion_line_url())
