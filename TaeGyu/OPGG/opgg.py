@@ -14,6 +14,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 import requests
+import json
 
 
 class OPGG():
@@ -265,7 +266,9 @@ class OPGG():
         i = 0
 
         for url in champion_line_url_list:
-            
+            if i == 2:
+                break
+
             time.sleep(1)
             print("현재 작업중인 URL > {}".format(url))
             result_list += self.find_champion_counter(url)
@@ -274,11 +277,70 @@ class OPGG():
         return result_list
 
 
+
+
+    def save_json_file(data, path, file_name):
+        """json 파일을 저장해줍니다.
+
+        Args:
+            data ([list, dict]): 리스트, 딕셔너리 형태의 데이터
+
+            path ([String]): 
+                ex > "C:/Users/~"
+
+            file_name ([String]): "filename.json"
+        """
+
+        try:
+            fs = open(path+"/"+file_name,"w", encoding='UTF-8')
+            print("파일 열기 성공")
+            print(data)
+            json.dump(data, fs, ensure_ascii=False)
+            # ensure_ascii=False 한글 인코딩 문제
+            
+            fs.close()
+        except:
+            print("파일 열기 실패")
+
+
+
+
+    def read_json_file(path, file_name):
+        """json 파일을 읽어옵니다.
+
+        Args:
+            path ([String]): 파일의 경로
+            file_name ([String]]): 파일 이름
+
+        Returns:
+            [list, dict]: json에서 읽은 데이터
+        """
+
+        
+        json_data = {}
+        
+        try:
+            fs = open(path+"/"+file_name, "r", encoding='UTF-8')
+            print("파일 열기 성공")
+            
+            data_json = json.load(fs)
+            json_data.update(data_json)
+            # ensure_ascii=False 한글 인코딩 문제
+            fs.close()
+            
+        except:
+            print("파일 열기 실패")
+            
+        return json_data
+
+
+
+
 if __name__ == '__main__':
 
     a = OPGG()
     c = a.find_champion_counter_all()
-    print(c)
+    OPGG.save_json_file(c, "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
 
 
 
