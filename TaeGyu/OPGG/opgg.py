@@ -13,9 +13,7 @@
 from bs4 import BeautifulSoup
 import time
 import requests
-import json
 import csv
-
 
 
 class OPGG():
@@ -116,7 +114,6 @@ class OPGG():
                 [['top', 'Shen', '1'], ['top', 'Aatrox', '1'], ... ]
         """
 
-        
         result_list = []
 
         line_tuple = ( "TOP", "JUNGLE",
@@ -155,18 +152,21 @@ class OPGG():
         html = self.read_html(self.OPGG_URL)
         
         ## 티어 챔피언 정보 tag 리스트
-        champion_info_list = html.find("div", class_="champion-index__champion-list").find_all("a")
+        champion_info_list = html.find("div", class_="champion-index__champion-list"
+                                ).find_all("a")
 
 
         for n in range(len(champion_info_list)):
 
             lt = []
 
-            champion_name = champion_info_list[n].find("div", class_="champion-index__champion-item__name"
-                                                ).get_text()
+            champion_name = champion_info_list[ n
+                            ].find("div", class_="champion-index__champion-item__name"
+                            ).get_text()
 
-            champion_line = champion_info_list[n].find("div", class_="champion-index__champion-item__positions"
-                                                ).find_all("div", class_="champion-index__champion-item__position")
+            champion_line = champion_info_list[ n
+                            ].find("div", class_="champion-index__champion-item__positions"
+                            ).find_all("div", class_="champion-index__champion-item__position")
             # 챔피언의 라인 넣기
             # 1개 이상이 나올 수 있어서 전부 찾아줌
             for cl in champion_line:
@@ -194,9 +194,11 @@ class OPGG():
 
         champion_line = self.find_champion_line()
 
+
         for k, value_list in champion_line.items():
             for vl in value_list:
-                result_list.append("https://www.op.gg/champion/{}/statistics/{}".format(k, vl))
+                URL = "https://www.op.gg/champion/{}/statistics/{}".format(k, vl)
+                result_list.append(URL)
 
         return result_list
 
@@ -236,10 +238,14 @@ class OPGG():
         for n in range(len(matchup_list)):
 
             # 상대 챔피언 이름
-            cntr_name = matchup_list[n].find("span").get_text()
+            cntr_name = matchup_list[n].find("span"
+                                      ).get_text()
 
             # 상대 챔피언과 승률
-            winning_rate = matchup_list[n].find("span", class_="champion-matchup-list__winrate").get_text().strip()[:-1] 
+            winning_rate = matchup_list[n
+                          ].find("span", class_="champion-matchup-list__winrate"
+                          ).get_text(
+                          ).strip()[:-1] 
 
             # 상대 챔피언과 판수
             matchup_cnt = matchup_list[n].find("small").get_text()
@@ -291,7 +297,6 @@ class OPGG():
 
         """
 
-
         # table 만들 때 필요한 정보
         tier = self.find_champion_tier_all()
         champion_name_list = self.find_champion_line().keys()
@@ -339,6 +344,7 @@ class OPGG():
 
 
 
+
     def counter_all_save_csv(self):
         """
             find_champion_counter_all 함수가
@@ -364,15 +370,10 @@ class OPGG():
 
 
 
-
-
 if __name__ == '__main__':
 
-    a = OPGG()
-    # a.tier_save_csv("C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
+    # counter_all_save_csv 호출
+    OPGG.counter_all_save_csv()
 
-    # counter = a.find_champion_counter_all()
-    tier = a.counter_all_save_csv()
-    
-    # OPGG.save_json_file(counter, "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
-    # print(a.find_champion_counter("https://www.op.gg/champion/Aatrox/statistics/Top"))
+    # tier_all_save_csv 호출
+    OPGG.tier_all_save_csv()
