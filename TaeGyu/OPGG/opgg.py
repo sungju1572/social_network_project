@@ -365,63 +365,6 @@ class OPGG():
 
 
 
-    def save_json_file(data, path, file_name):
-        """json 파일을 저장해줍니다.
-
-        Args:
-            data ([list, dict]): 리스트, 딕셔너리 형태의 데이터
-
-            path ([String]): 
-                ex > "C:/Users/~"
-
-            file_name ([String]): "filename.json"
-        """
-
-        try:
-            fs = open(path+"/"+file_name,"w", encoding='UTF-8')
-            print("파일 열기 성공")
-            print(data)
-            json.dump(data, fs, ensure_ascii=False)
-            # ensure_ascii=False 한글 인코딩 문제
-            
-            fs.close()
-        except:
-            print("파일 열기 실패")
-
-
-
-
-    def read_json_file(path, file_name):
-        """json 파일을 읽어옵니다.
-
-        Args:
-            path ([String]): 파일의 경로
-            file_name ([String]]): 파일 이름
-
-        Returns:
-            [list, dict]: json에서 읽은 데이터
-        """
-
-        
-        json_data = {}
-        
-        try:
-            fs = open(path+"/"+file_name, "r", encoding='UTF-8')
-            print("파일 열기 성공")
-            
-            data_json = json.load(fs)
-            json_data.update(data_json)
-            # ensure_ascii=False 한글 인코딩 문제
-            fs.close()
-            
-        except:
-            print("파일 열기 실패")
-            
-        return json_data
-
-
-
-
 
 if __name__ == '__main__':
 
