@@ -7,7 +7,7 @@
 
     --------------------------------------------------------
      
-    email : gksxorb147@naver.com
+    email : gksxorb147@gmail.com
 """
 
 from bs4 import BeautifulSoup
@@ -284,7 +284,6 @@ class OPGG():
 
 
 
-
     def tier_all_save_csv(self):
         """ 
             챔피언의 티어정보를 csv 파일로
@@ -314,7 +313,6 @@ class OPGG():
                 if table[n][0] == ti[1]:
 
                     if ti[0] == 'top':
-                        print("check")
                         table[n][1] = ti[2]
 
                     elif ti[0] == 'mid':
@@ -338,6 +336,32 @@ class OPGG():
                 writer.writerow(row)
 
         f.close()
+
+
+
+    def counter_all_save_csv(self):
+        """
+            find_champion_counter_all 함수가
+            return 하는 정보를 csv file로 만들어서
+            저장합니다.
+        """
+
+        col_name = [["line", "champion1", "champion2", "winning_rage", "match_count"]]
+
+        data = self.find_champion_counter_all()
+
+        table = col_name + data
+
+        # csv file 생성
+        with open('./csv/counter.csv', 'w', newline='') as f:
+
+            writer = csv.writer(f)
+
+            for row in table:
+                writer.writerow(row)
+
+        f.close()
+
 
 
 
@@ -404,13 +428,8 @@ if __name__ == '__main__':
     a = OPGG()
     # a.tier_save_csv("C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
 
-
-
     # counter = a.find_champion_counter_all()
-    tier = a.tier_all_save_csv()
+    tier = a.counter_all_save_csv()
     
     # OPGG.save_json_file(counter, "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
-
-
-
     # print(a.find_champion_counter("https://www.op.gg/champion/Aatrox/statistics/Top"))
