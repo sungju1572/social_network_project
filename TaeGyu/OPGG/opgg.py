@@ -199,7 +199,7 @@ class OPGG():
     def find_champion_counter(self, URL):
         """ OP.GG 챔피언 line URL를 입력받아서
             같은 라인의 상대 챔피언간의 상성을 
-            비교해서 list 형으로 return 한다.
+            비교후 list 형으로 return 한다.
 
         Args:
             [string]: URL을 입력합니다.
@@ -245,9 +245,41 @@ class OPGG():
         return result_list
 
 
+
+    def find_champion_counter_all(self):
+        """ 모든 챔피언의 같은 라인의
+            상대 챔피언간의 상성을 
+            비교후 list 형으로 return 한다.
+
+        Returns:
+            [list]: 아래와 같은 형식으로 리턴 합니다.
+                [ ['Support', 'Zac', 'Xerath', '53.38', '133'],
+                  ['Support', 'Zac', 'Blitzcrank', '52.27', '132'],
+                    ... ]
+        """
+
+        result_list = []
+
+        champion_line_url_list = self.champion_line_url()
+
+        i = 0
+
+        for url in champion_line_url_list:
+            
+            time.sleep(1)
+            print("현재 작업중인 URL > {}".format(url))
+            result_list += self.find_champion_counter(url)
+            i += 1
+        
+        return result_list
+
+
 if __name__ == '__main__':
 
     a = OPGG()
-    # c = a.find_champion_tier_all()
-    # print(c)
-    print(a.find_champion_counter("https://www.op.gg/champion/Aatrox/statistics/Top"))
+    c = a.find_champion_counter_all()
+    print(c)
+
+
+
+    # print(a.find_champion_counter("https://www.op.gg/champion/Aatrox/statistics/Top"))
