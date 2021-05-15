@@ -10,11 +10,12 @@
     email : gksxorb147@naver.com
 """
 
-from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 import requests
 import json
+import csv
+
 
 
 class OPGG():
@@ -26,8 +27,9 @@ class OPGG():
         pass
 
     def read_html(self, URL):
-        """URL을 받아서 html을 bs4.BeautifulSoup
-          type으로 변환해서 돌려줍니다.
+        """
+            URL을 받아서 html을 bs4.BeautifulSoup
+            type으로 변환해서 돌려줍니다.
 
         Args:
             URL ([String]]): "https://www.google.com"
@@ -49,7 +51,8 @@ class OPGG():
 
 
     def find_champion_tier(self, line="TOP"):
-        """원하는 챔피언의 라인을 받아서 
+        """
+           원하는 챔피언의 라인을 받아서 
            그 라인의 티어 list를
            return 합니다. 
 
@@ -103,7 +106,8 @@ class OPGG():
 
 
     def find_champion_tier_all(self):
-        """모든 라인의 티어를 list로
+        """
+            모든 라인의 티어를 list로
            return 합니다.
 
         Returns:
@@ -135,7 +139,8 @@ class OPGG():
 
 
     def find_champion_line(self):
-        """챔피언이 가는 라인을 찾아서
+        """
+            챔피언이 가는 라인을 찾아서
            dict 형식으로 return 합니다.
 
         Returns:
@@ -174,7 +179,8 @@ class OPGG():
 
     
     def champion_line_url(self):
-        """ 챔피언의 라인별로 URL을 생성 후
+        """ 
+            챔피언의 라인별로 URL을 생성 후
             list type으로 return 합니다.
 
         Returns:
@@ -198,7 +204,8 @@ class OPGG():
 
 
     def find_champion_counter(self, URL):
-        """ OP.GG 챔피언 line URL를 입력받아서
+        """ 
+            OP.GG 챔피언 line URL를 입력받아서
             같은 라인의 상대 챔피언간의 상성을 
             비교후 list 형으로 return 한다.
 
@@ -248,7 +255,8 @@ class OPGG():
 
 
     def find_champion_counter_all(self):
-        """ 모든 챔피언의 같은 라인의
+        """ 
+            모든 챔피언의 같은 라인의
             상대 챔피언간의 상성을 
             비교후 list 형으로 return 한다.
 
@@ -266,8 +274,6 @@ class OPGG():
         i = 0
 
         for url in champion_line_url_list:
-            if i == 2:
-                break
 
             time.sleep(1)
             print("현재 작업중인 URL > {}".format(url))
@@ -276,6 +282,62 @@ class OPGG():
         
         return result_list
 
+
+
+
+    def tier_all_save_csv(self):
+        """ 
+            챔피언의 티어정보를 csv 파일로
+            만들어 줍니다.
+
+        """
+
+
+        # table 만들 때 필요한 정보
+        tier = self.find_champion_tier_all()
+        champion_name_list = self.find_champion_line().keys()
+        
+        # talbe 만들기
+        table = [["champion", "top", "jungle", "mid", "adc", "support"]]
+
+        for name in champion_name_list:
+            # champion, top, jungle, mid, adc, support
+            table += [[name, 0, 0, 0, 0, 0]]
+
+        print(tier)
+
+        for ti in tier:
+            # ti[0] > line
+            # ti[1] > name
+            # ti[2] > tier
+            for n in range(len(table)):
+                if table[n][0] == ti[1]:
+
+                    if ti[0] == 'top':
+                        print("check")
+                        table[n][1] = ti[2]
+
+                    elif ti[0] == 'mid':
+                        table[n][2] = ti[2]
+
+                    elif ti[0] == 'jungle':
+                        table[n][3] = ti[2]
+
+                    elif ti[0] == 'adc':
+                        table[n][4] = ti[2]
+
+                    elif ti[0] == 'support':
+                        table[n][5] = ti[2]
+
+        # csv file 생성
+        with open('./csv/tier.csv', 'w', newline='') as f:
+
+            writer = csv.writer(f)
+
+            for row in table:
+                writer.writerow(row)
+
+        f.close()
 
 
 
@@ -336,11 +398,18 @@ class OPGG():
 
 
 
+
 if __name__ == '__main__':
 
     a = OPGG()
-    c = a.find_champion_counter_all()
-    OPGG.save_json_file(c, "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
+    # a.tier_save_csv("C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
+
+
+
+    # counter = a.find_champion_counter_all()
+    tier = a.tier_all_save_csv()
+    
+    # OPGG.save_json_file(counter, "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/json", "counter.json")
 
 
 
