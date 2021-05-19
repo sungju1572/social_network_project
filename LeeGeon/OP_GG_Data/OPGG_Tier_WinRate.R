@@ -79,7 +79,7 @@ write.csv(ChampionWinRate,"ChampionWinRate(Blitz-Illa).csv",row.names=FALSE)
 
 ####----------------------티어 구하기(52개 챔피언)----------------------####
 
-ChampionTirelist <- data.frame() # 각 챔피언-라인별 티어를 구하기 위한 데이터프레임
+ChampionTierlist <- data.frame() # 각 챔피언-라인별 티어를 구하기 위한 데이터프레임
 
 for(x in 1:nrow(url)){
   res <- GET(url=url[x,])
@@ -87,26 +87,22 @@ for(x in 1:nrow(url)){
   Tier <- res %>% read_html() %>%
     html_nodes(css='div.champion-stats-header-info__tier > b') %>% html_text() %>% str_sub(start=-1) %>% as.integer()
   
-  VsWinRate <- res %>% read_html() %>%
-    html_nodes(css='div.champion-matchup-champion-list>div') %>% 
-    html_attr(c('data-value-winrate'))
-  
-  ChampionTirelist <- rbind(ChampionTirelist,data.frame(Line=str_sub(url[x,],start=url[x,] %>% str_locate_all('/statistics/') %>% unlist() %>% .[[2]]+1,
-                                                                   end=url[x,] %>% str_locate_all('/matchup') %>% unlist() %>%.[[1]]-1),
-                                                      Champion=str_sub(url[x,],start=url[x,] %>% str_locate_all('/champion/') %>% unlist() %>% .[[2]]+1,
-                                                                       end=url[x,] %>% str_locate_all('/statistics/') %>% unlist() %>%.[[1]]-1),
-                                                      Tier=Tier))
+  ChampionTierlist <- rbind(ChampionTierlist,data.frame(Line=str_sub(url[x,],start=url[x,] %>% str_locate_all('/statistics/') %>% unlist() %>% .[[2]]+1,
+                                                                     end=url[x,] %>% str_locate_all('/matchup') %>% unlist() %>%.[[1]]-1),
+                                                        Champion=str_sub(url[x,],start=url[x,] %>% str_locate_all('/champion/') %>% unlist() %>% .[[2]]+1,
+                                                                         end=url[x,] %>% str_locate_all('/statistics/') %>% unlist() %>%.[[1]]-1),
+                                                        Tier=Tier))
 }
 
-ChampionTirelist$Line <- as.character(factor(ChampionTirelist$Line,
-                                   levels=c("top","jungle","mid","bot","support"),
-                                   labels=c("Top","Jungle","Middle","Bottom","Support")))
+ChampionTierlist$Line <- as.character(factor(ChampionTierlist$Line,
+                                             levels=c("top","jungle","mid","bot","support"),
+                                             labels=c("Top","Jungle","Middle","Bottom","Support")))
 
-for(x in 1:nrow(ChampionTirelist)){
-  My_Champion[which(str_detect(My_Champion$search,ChampionTirelist$Champion[x])),
-              which(str_detect(colnames(My_Champion),ChampionTirelist$Line[x]))] <- ChampionTirelist$Tier[x]
-  
+for(x in 1:nrow(ChampionTierlist)){
+  My_Champion[which(My_Champion$search %in% ChampionTierlist$Champion[x]),
+              which(colnames(My_Champion) %in% ChampionTierlist$Line[x])] <- ChampionTierlist$Tier[x]
 }
+My_Champion %>% View()
 
 write.csv(My_Champion,"ChampionTierList(Blitz-Illa).csv",row.names=FALSE)
 
