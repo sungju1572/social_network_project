@@ -101,12 +101,6 @@ for(x in 1:nrow(url)){
 ChampionTirelist$Line <- as.character(factor(ChampionTirelist$Line,
                                    levels=c("top","jungle","mid","bot","support"),
                                    labels=c("Top","Jungle","Middle","Bottom","Support")))
-ChampionTirelist$Line
-ChampionTirelist$Champion
-
-which(str_detect(My_Champion$search,ChampionTirelist$Champion[3]))
-
-which(str_detect(colnames(My_Champion),ChampionTirelist$Line[1]))
 
 for(x in 1:nrow(ChampionTirelist)){
   My_Champion[which(str_detect(My_Champion$search,ChampionTirelist$Champion[x])),
