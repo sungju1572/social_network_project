@@ -12,7 +12,7 @@ library(tidyverse)
 
 ####----------------------승률 구하기(52개 챔피언)----------------------####
 
-Champion_total <- read.csv("OPGG_Champion_name.csv") # 앞서 저장한 OPGG_Champion_name.csv 파일 불러오기
+Champion_total <- read.csv("Champion_name.csv") # 앞서 저장한 OPGG_Champion_name.csv 파일 불러오기
 
 My_Champion <- Champion_total[53:104,] # 내 담당부분(블리츠-일라오이)만 꺼낸다
 My_Champion <- My_Champion[-which(My_Champion$Korean_Champ=="스카너"),]
