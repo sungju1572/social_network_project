@@ -106,12 +106,14 @@ Champ_KE <- merge(Champ_total,Match_search,all.x=TRUE)
 Champ_KE <- Champ_KE[,-1]
 
 Champion_total <- merge(Champion_list,Champ_KE,all.x=TRUE)
-Champion_total <- Champion_total[,c(9,2:8,1)] # 보기 좋게 순서 바꾸기
+Champion_total <- Champion_total[,c(9,2:7,1)] # 보기 좋게 순서 바꾸기
 
 # NA값들 이름 주기(한국어 이름으로 정렬해야 하므로)
 Champion_total$Korean_Champ[154] <- c("직스")
 Champion_total$Korean_Champ[155] <- c("스카너")
 Champion_total <- arrange(Champion_total,Korean_Champ)
+
+Champion_total
 
 write.csv(Champion_total,"OPGG_Champion_name.csv",row.names=FALSE)
 
