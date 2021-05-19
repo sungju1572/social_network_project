@@ -115,6 +115,6 @@ Champion_total <- arrange(Champion_total,Korean_Champ)
 
 Champion_total
 
-write.csv(Champion_total,"OPGG_Champion_name.csv",row.names=FALSE)
+write.csv(Champion_total,"Champion_name.csv",row.names=FALSE)
 
 #--------------------------------------------------------------------#
