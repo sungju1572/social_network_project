@@ -200,11 +200,11 @@ def evnet_daily_onepage_data(evnet_code, page_number):
         #print(tag.get_text())
     
     ## 상태 컬럼 넣기
-    datd_row_list.insert(2, '상태') 
-    data_list.append(datd_row_list) 
+    datd_row_list.insert(2, '상태')
+    data_list.append(datd_row_list)
     
     ## row 생성하기
-    for num in range(len(table)-1):
+    for num in range(len(table) - 1):
         
         datd_row_list = []
         
@@ -239,7 +239,6 @@ def evnet_daily_onepage_data(evnet_code, page_number):
                     return data_list, False
             except:
                 print(str(num)+": 번째 데이터 없음")
-                print()
                 break
         
     return data_list, True
@@ -267,7 +266,7 @@ def evnet_daily_all_data(event_name, event_code):
     data_list = []
     
     last_page = evnet_daily_pagination(event_code)
-    
+    ## 1
     for page_number in range(1,int(last_page)+1): ## 페이지 loop
         if page_number == 1:                        ## 첫번째 페이지 컬럼명
             data_list += evnet_daily_onepage_data(event_code, page_number)[0][:]
@@ -326,13 +325,12 @@ def save_evnet_daily_all_data(kospi_200_item_code, save_path):
 
 # kospi_200_item_code.json 파일 경로
 path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json"
+
 file_name = "kospi_200_item_code.json"
-kospi_200_item_code = read_json_file(path,file_name)
+
+kospi_200_item_code = read_json_file(path, file_name)
 
 # 데이터 저장 장소
 path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json/data"
+
 save_evnet_daily_all_data(kospi_200_item_code, path)
-
-    
-
-
