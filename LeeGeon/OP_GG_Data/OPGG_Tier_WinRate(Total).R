@@ -53,7 +53,7 @@ for(x in 1:nrow(url)){
   
   VsChampion <- res %>% read_html() %>%
     html_nodes(css='div.champion-matchup-champion-list>div') %>% 
-    html_attr(c('data-champion-name'))
+    html_attr(c('data-champion-key'))
   
   VsWinRate <- res %>% read_html() %>%
     html_nodes(css='div.champion-matchup-champion-list>div') %>% 

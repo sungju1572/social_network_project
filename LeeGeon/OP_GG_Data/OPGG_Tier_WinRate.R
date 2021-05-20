@@ -54,7 +54,7 @@ for(x in 1:nrow(url)){
   
   VsChampion <- res %>% read_html() %>%
     html_nodes(css='div.champion-matchup-champion-list>div') %>% 
-    html_attr(c('data-champion-name'))
+    html_attr(c('data-champion-key'))
   
   VsWinRate <- res %>% read_html() %>%
     html_nodes(css='div.champion-matchup-champion-list>div') %>% 
@@ -102,7 +102,6 @@ for(x in 1:nrow(ChampionTierlist)){
   My_Champion[which(My_Champion$search %in% ChampionTierlist$Champion[x]),
               which(colnames(My_Champion) %in% ChampionTierlist$Line[x])] <- ChampionTierlist$Tier[x]
 }
-My_Champion %>% View()
 
 write.csv(My_Champion,"ChampionTierList(Blitz-Illa).csv",row.names=FALSE)
 
