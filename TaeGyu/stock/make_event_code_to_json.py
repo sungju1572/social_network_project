@@ -104,13 +104,14 @@ def find_evnet_code(pagination_number):
                                  ).find("a"
                                  ).attrs["href"
                                  ].split("=")[-1]
-                               
+
         item_name = table_row[num].find("td", class_="ctg"
                                  ).find("a"
                                  ).get_text()
-                                        
+
         item_dict[item_name] = item_code
 
+    print(item_dict)
     return item_dict
 
 #-----------------------------------------------------------------------------------#
@@ -204,9 +205,4 @@ path = "C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/json
 # 저장하고 싶은 파일명을 입력합니다.
 file_name = "kospi_200_item_code.json"
 
-save_json_file(data,path,file_name)
-
-
-
-
-
+save_json_file(data, path, file_name)
