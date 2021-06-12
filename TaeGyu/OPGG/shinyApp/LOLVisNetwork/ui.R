@@ -1,12 +1,13 @@
 
-
-library(shiny)
-library(shinydashboard)
-library(tidyverse)
-library(DT)
-library(pracma)
-library(seewave)
-library(changepoint)
+# library(shiny)
+# library(shinydashboard)
+# library(tidyverse)
+# library(DT)
+# # library(pracma)
+# # library(seewave)
+# library(changepoint)
+# library(visNetwork)
+# library(rsconnect)
 
 selectStyle <- "
                  /*max-height: 500px;
@@ -21,6 +22,7 @@ edgeShowTypeList <- c(
     "Lose" = 2,
     "Draw" = 3
 )
+
 
 
 ui <- dashboardPage(
@@ -117,12 +119,26 @@ ui <- dashboardPage(
                                 visNetworkOutput("networkPlot", height = "600px", width = "100%")
                             ),
                             fluidRow(
-                                box(
-                                    width = "100%",
-                                    radioButtons(width = "30%",
-                                                 inputId = "edgeShowType",
-                                                 label = "Edge Select",
-                                                 choices = edgeShowTypeList)
+                                column(
+                                    width = 3,
+                                    box(
+                                        width = "100%",
+                                        radioButtons(width = "30%",
+                                                     inputId = "edgeShowType",
+                                                     label = "Edge Select",
+                                                     choices = edgeShowTypeList)
+                                    )
+                                ),
+                                column(
+                                    width = 9,
+                                    box(
+                                        width = "100%",
+                                        height = "180px",
+                                        sliderInput(inputId = "WinningPercentage",
+                                                    label = h3("Percentage"),
+                                                    width = "100%",
+                                                    min = 1, max = 99, value = c(25, 75))
+                                    )
                                 )
                             )
                             

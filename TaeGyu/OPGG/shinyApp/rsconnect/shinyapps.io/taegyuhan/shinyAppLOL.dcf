@@ -1,0 +1,14 @@
+name: shinyAppLOL
+title: shinyAppLOL
+username:
+account: taegyuhan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4198718
+bundleId: 4649779
+url: https://taegyuhan.shinyapps.io/shinyAppLOL/
+when: 1622188151.26364
+lastSyncTime: 1622188151.26364
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: data/EDGE_DATA.csv|data/NODES_DATA.csv

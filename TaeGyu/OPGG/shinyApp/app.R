@@ -3,7 +3,7 @@
 
 #------------------------------------------------------------------#
 # install.packages("shiny")
-install.packages("shinydashboard")
+# install.packages("shinydashboard")
 # install.packages("tidyverse")
 # install.packages("DT")
 # install.packages("pracma")
@@ -14,49 +14,28 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(DT)
-library(pracma)
-library(seewave)
-library(changepoint)
+# library(pracma)
+# library(seewave)
+# library(changepoint)
+library(visNetwork)
+library(rsconnect)
 #------------------------------------------------------------------#
 
+# setwd("C:/shinyApp/shinyLoL")
 
-# EDGE_DATA <- read_csv("./data/EDGE_DATA.csv")
-# NODES_DATA <- read_csv("./data/NODES_DATA.csv")
-
-
-
-# makeSelectList <- function(line)
-# {
-#   
-#   dataFrame1 <- NODES_DATA %>% 
-#     filter(str_detect(group, line)) %>% 
-#     select(id)
-#   
-#   dataFrame2 <- NODES_DATA %>% 
-#     filter(str_detect(group,  line)) %>% 
-#     select(label)
-#   
-#   resultList <- c(dataFrame1$id)
-#   names(resultList) <- dataFrame2$label
-#   
-#   return(resultList)
-# }
-
-# # make select filter list
-# TopLineChamp <- makeSelectList("T")
-# MinLineChamp <- makeSelectList("M")
-# JungleLineChamp <- makeSelectList("J")
-# BotLineChamp <- makeSelectList("A")
-# SupportLineChamp <- makeSelectList("S")
+load(file = "./data/Rdata/EDGE_DATA.Rdata")
+load(file = "./data/Rdata/NODES_DATA.Rdata")
+load(file = "./data/Rdata/TopLineChamp.Rdata")
+load(file = "./data/Rdata/MinLineChamp.Rdata")
+load(file = "./data/Rdata/JungleLineChamp.Rdata")
+load(file = "./data/Rdata/BotLineChamp.Rdata")
+load(file = "./data/Rdata/SupportLineChamp.Rdata")
 
 
 #------------------------------------------------------------------#
 # save.image(file = ".RData")
 
-# setwd("C:/shinyApp/shinyApp_LOL")
+runApp("LOLVisNetwork")
 
-load( "./LOLNetwork/.RData" )
 
-runApp("LOLNetwork")
 #------------------------------------------------------------------#
-

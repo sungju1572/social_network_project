@@ -107,6 +107,7 @@ makeNodeShapeNum <- function()
   return(shape)
 }
 
+
 # 모양 티어 반환
 nodeShape <- makeNodeShape()
 shape <- makeNodeShapeNum()
@@ -266,6 +267,35 @@ makeEdageFilter <- function(champIndex){
     
     return(paste0(resultEdgeFilter,  collapse ='|'))
 }
+
+
+visNetwork(
+  
+  NODES_DATA %>% filter(
+    id %in% c( input$selectTopChamp,
+               input$selectMidChamp,
+               input$selectJungleChamp,
+               input$selectBotChamp,
+               input$selectSupportChamp )
+  ),
+  
+  EDGE_DATA %>% 
+    filter( 
+      eval(parse(text=makeEdageFilter(selectChamp))),
+      win == 50
+    )
+  
+) %>% 
+  visOptions(highlightNearest = list(enabled = T, degree = 0, hover = T))
+
+
+
+
+EDGE_DATA %>% 
+  filter( 
+    eval(parse(text=makeEdageFilter(selectChamp))),
+    win == 50
+  )
 
 
 # write_csv(EDGE_DATA, "EDGE_DATA.csv")

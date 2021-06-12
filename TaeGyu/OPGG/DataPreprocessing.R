@@ -13,7 +13,7 @@
 
 # 경로 변경
 getwd()
-setwd("C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/csv")
+setwd("C:/Users/gksxo/Desktop/Project/github/social_network_project/TaeGyu/OPGG/csv/data")
 
 # ---------------------------------------------------- #
 # install.packages('extrafont')
@@ -26,24 +26,27 @@ library(igraph)
 
 # data read
 counter <- read_csv("counter.csv")
-tier <- read_csv("tier.csv")
+tier <- read_csv("ChampionTierList(Total).csv")[,2:8]
+
+
+
 
 
 
 # 전처리
 textTier <- tier %>% 
-            mutate(top = replace(top, top != 0, "T"),
-                   jungle = replace(jungle, jungle != 0, "J"),
-                   mid = replace(mid, mid != 0, "M"),
-                   adc = replace(adc, adc != 0, "A"),
-                   support = replace(support, support != 0, "S"))
+  mutate(Top = replace(Top, Top != 0, "T"),
+         Jungle = replace(Jungle, Jungle != 0, "J"),
+         Middle  = replace(Middle , Middle  != 0, "M"),
+         Bottom = replace(Bottom, Bottom != 0, "A"),
+         Support = replace(Support, Support != 0, "S"))
 
 textTier <- textTier %>% 
-            mutate(top = replace(top, top == 0, ""),
-                   jungle = replace(jungle, jungle == 0, ""),
-                   mid = replace(mid, mid == 0, ""),
-                   adc = replace(adc, adc == 0, ""),
-                   support = replace(support, support == 0, ""))
+  mutate(Top = replace(Top, Top == 0, ""),
+         Jungle = replace(Jungle, Jungle == 0, ""),
+         Middle  = replace(Middle , Middle  == 0, ""),
+         Bottom = replace(Bottom, Bottom == 0, ""),
+         Support = replace(Support, Support == 0, ""))
 
 champLine <- c()
 
@@ -80,6 +83,7 @@ links <- counter %>%
 links <- links[, c(2,3,4,5,6,1)]
 
 
+
 colnames(nodes) <- c()
 colnames(links) <- c( "from"        
                     , "to"        
@@ -91,7 +95,6 @@ colnames(links) <- c( "from"
 
 
 net <- graph_from_data_frame(links,vertices = nodes,directed = T)
-
 
 # write.csv(nodes, "./nodes.csv")
 # write.csv(links, "./edges.csv")
