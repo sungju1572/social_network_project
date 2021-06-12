@@ -129,14 +129,14 @@ qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
 col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
 colors <- sample(col_vector, 18)
 
-
+shape
 
 # node 데이터 만들기
 NODES_DATA <- data.frame(
   id = as.numeric(as.factor(tierData$search)),# 챔피언 id 번호
   shape =  nodeShape, # 노드 모양
-  size  =  sumCount$count, # 노드 크기
-  title =  paste0("<p>Line : <b>", champLine,"</b><br>Match Cnt : <b>", sumCount$count,"</b><br>Tier : <b>", nodeShape,"</b></p>"), # 노드 타이틀
+  # size  =  sumCount$count, # 노드 크기
+  title =  paste0("<p>Line : <b>", champLine,"</b><br>Match Cnt : <b>", sumCount$count,"</b><br>Tier : <b>", shape,"</b></p>"), # 노드 타이틀
   value =  sumCount$count, # 노드 크기
   label = tierData$search, # 노드 라벨
   group = champLine, # 노드 그룹
@@ -150,8 +150,6 @@ NODES_DATA <- data.frame(
 # ---------------------------------------------------------------------------- #
 
 
-
-as.numeric(as.factor())
 
 
 
@@ -188,7 +186,7 @@ EDGE_DATA <- data.frame(
     "<br>",
     " Winning rate : <b>",windRateData$VsWinRate*100,"%</b>",
     "<br>",
-    " Line : <b>",windRateData$Line,"%</b>",
+    " Line : <b>",windRateData$Line,"</b>",
     "</p>"
     
   ), # 선 타이틀
@@ -266,7 +264,7 @@ EDGE_DATA %>% filter(from %in% c(64, 101), to %in% c(64, 101))
 
 
 
-
+getwd()
 
 
 
