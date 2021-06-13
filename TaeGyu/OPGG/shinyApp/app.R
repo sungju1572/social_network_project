@@ -9,6 +9,7 @@
 # install.packages("pracma")
 # install.packages("seewave")
 # install.packages("changepoint")
+# install.packages("visNetwork")
 
 library(shiny)
 library(shinydashboard)
@@ -21,7 +22,7 @@ library(visNetwork)
 library(rsconnect)
 #------------------------------------------------------------------#
 
-# setwd("C:/shinyApp/shinyLoL")
+setwd("C:/Users/LeeGeon.DESKTOP-C5M3NRB.000/Documents/GitHub/social_network_project/TaeGyu/OPGG/shinyApp")
 
 load(file = "./data/Rdata/EDGE_DATA.Rdata")
 load(file = "./data/Rdata/NODES_DATA.Rdata")
