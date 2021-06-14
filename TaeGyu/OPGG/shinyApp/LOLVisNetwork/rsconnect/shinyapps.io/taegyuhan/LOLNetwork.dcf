@@ -1,0 +1,13 @@
+name: LOLNetwork
+title: LOLNetwork
+username:
+account: taegyuhan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4198602
+bundleId: 4649659
+url: https://taegyuhan.shinyapps.io/shinyapplol2/
+when: 1622185887.50874
+lastSyncTime: 1622185887.50874
+asMultiple: FALSE
+asStatic: FALSE
