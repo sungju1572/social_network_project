@@ -157,11 +157,13 @@ for(z in code){
     }
   }
 
+  
 }
 
 
 
 setwd("C:/Users/Schbi/Desktop/소셜")
+
 write.csv(Line_Data_frame, file="Champion_Line_Tier.csv",row.names=FALSE)
 
 
